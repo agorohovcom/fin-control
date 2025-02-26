@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/welcome")
-public class WelcomeController {
+@RequestMapping("/fin")
+public class FinancialController {
 
     @GetMapping
     public ResponseEntity<String> welcome() {
-        return ResponseEntity.ok("Привет, дорогуша!\nТут не нужна авторизация, рады всем!");
+        return ResponseEntity.ok("Привет!\nТут нужна авторизация!");
     }
 }

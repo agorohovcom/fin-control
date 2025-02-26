@@ -32,11 +32,11 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(AUTH_WHITELIST).permitAll()
-                                .requestMatchers(HttpMethod.GET, "/welcome").permitAll()
                                 .requestMatchers("/fin/**").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/welcome").permitAll()
+                                .anyRequest().permitAll()
                 ).headers(headers -> headers
-                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)
-                )
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .httpBasic(Customizer.withDefaults());
         return http.build();
     }
