@@ -7,6 +7,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +19,8 @@ public class WebSecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
             "/login",
-            "/register"
+            "/register",
+            "/h2-console/**"
     };
 
     @Bean
@@ -28,11 +30,12 @@ public class WebSecurityConfig {
                 .userDetailsService(userDetailsService)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
-                                authorize
-                                        .requestMatchers(AUTH_WHITELIST).permitAll()
-                                        .requestMatchers(HttpMethod.GET, "/").permitAll()
-                        // TODO добавить ендпоинты для которых будет работать авторизация
-//                                .requestMatchers("/path1/**", "/path2/**").authenticated()
+                        authorize
+                                .requestMatchers(AUTH_WHITELIST).permitAll()
+                                .requestMatchers(HttpMethod.GET, "/welcome").permitAll()
+                                .requestMatchers("/fin/**").authenticated()
+                ).headers(headers -> headers
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)
                 )
                 .httpBasic(Customizer.withDefaults());
         return http.build();
