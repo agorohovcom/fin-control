@@ -2,7 +2,6 @@ package com.agorohov.fin_control.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,6 +19,7 @@ public class WebSecurityConfig {
     private static final String[] AUTH_WHITELIST = {
             "/login",
             "/register",
+            "/welcome",
             "/h2-console/**"
     };
 
@@ -32,9 +32,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(AUTH_WHITELIST).permitAll()
-                                .requestMatchers("/fin/**").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/welcome").permitAll()
-                                .anyRequest().permitAll()
+                                .anyRequest().authenticated()
                 ).headers(headers -> headers
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .httpBasic(Customizer.withDefaults());

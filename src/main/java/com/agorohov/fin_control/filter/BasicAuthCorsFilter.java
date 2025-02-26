@@ -19,6 +19,13 @@ public class BasicAuthCorsFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
         response.addHeader("Access-Control-Allow-Credentials", "true");
+
+//        // Добавляем заголовок только для CORS-запросов (ещё так не пробовал)
+//        String origin = request.getHeader("Origin");
+//        if (origin != null && !origin.isEmpty()) {
+//            response.addHeader("Access-Control-Allow-Credentials", "true");
+//        }
+
         filterChain.doFilter(request, response);
     }
 }
