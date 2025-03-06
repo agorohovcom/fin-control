@@ -1,6 +1,6 @@
 package com.agorohov.fin_control.entity;
 
-import com.agorohov.fin_control.enums.Role;
+import com.agorohov.fin_control.role.Role;
 import jakarta.persistence.*;
 
 @Entity

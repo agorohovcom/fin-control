@@ -1,8 +1,9 @@
 package com.agorohov.fin_control.dto;
 
-import com.agorohov.fin_control.enums.Role;
+import com.agorohov.fin_control.role.Role;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -13,6 +14,8 @@ public class Register {
     private String email;
     @Size(min = 8, max = 16)
     private String password;
+    //    @ValidRole // эта аннотация нужна если поле role будет типа String, и тогда не нужен @NotNull
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
 
